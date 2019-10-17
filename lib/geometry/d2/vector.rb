@@ -4,6 +4,8 @@ module Geometry
     class Vector
       attr_reader :x, :y
 
+      EQUITY_TOLERANCE = 0.0000000000001
+      
       def initialize(x, y)
         @x = x; @y = y
 
@@ -14,7 +16,7 @@ module Geometry
       # Compare self and other Vector.
       def ==(other)
         return false unless other.is_a?(Vector)
-        x == other.x && y == other.y
+        (x - other.x).abs < EQUITY_TOLERANCE && (y - other.y).abs < EQUITY_TOLERANCE
       end
 
       # Subtract two vectors.
