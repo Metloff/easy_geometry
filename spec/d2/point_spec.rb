@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-RSpec.describe Geometry::D2::Point do
+RSpec.describe EasyGeometry::D2::Point do
   let(:p1) { described_class.new(0, 0) }
   let(:p2) { described_class.new(1, 1) }
   let(:p3) { described_class.new(3, 0) }
   let(:p4) { described_class.new(2, 2) }
   let(:p5) { described_class.new(-2, 2) }
-  let(:l1) { Geometry::D2::Line.new(p1, p2) }
+  let(:l1) { EasyGeometry::D2::Line.new(p1, p2) }
 
   describe '.new' do
     it 'should raise error if incorrect parameters' do

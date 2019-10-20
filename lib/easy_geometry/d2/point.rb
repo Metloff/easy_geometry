@@ -1,4 +1,4 @@
-module Geometry
+module EasyGeometry
   module D2
     # A point in a 2-dimensional Euclidean space.
     class Point

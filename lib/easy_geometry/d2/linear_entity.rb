@@ -1,4 +1,4 @@
-module Geometry
+module EasyGeometry
   module D2
     # A base class for all linear entities (Line, Ray and Segment)
     # in 2-dimensional Euclidean space.

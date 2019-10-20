@@ -1,4 +1,4 @@
-module Geometry
+module EasyGeometry
   module D2
     # A polygon with three vertices and three sides.
     class Triangle < Polygon

@@ -1,4 +1,4 @@
-module Geometry
+module EasyGeometry
   module D2
     # A Ray is a semi-line in the space with a source point and a direction.
     class Ray < LinearEntity

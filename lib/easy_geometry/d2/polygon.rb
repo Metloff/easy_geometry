@@ -1,4 +1,4 @@
-module Geometry
+module EasyGeometry
   module D2
     # A two-dimensional polygon.
     # A simple polygon in space. Can be constructed from a sequence of points

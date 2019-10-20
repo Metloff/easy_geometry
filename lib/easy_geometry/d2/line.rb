@@ -1,4 +1,4 @@
-module Geometry
+module EasyGeometry
   module D2
     # An infinite line in 2-dimensional Euclidean space.
     class Line < LinearEntity

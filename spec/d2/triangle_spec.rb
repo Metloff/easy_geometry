@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe Geometry::D2::Triangle do
-  let(:l1) { Geometry::D2::Line.new([0, 0], [1, 1]) }
+RSpec.describe EasyGeometry::D2::Triangle do
+  let(:l1) { EasyGeometry::D2::Line.new([0, 0], [1, 1]) }
   let(:t1) { described_class.new([0, 0], [4, 4], [0, 4]) }
   let(:t2) { described_class.new([0, 0], [0, 1], [1, 1]) }
   let(:t3) { described_class.new([0, 0], [1/2r, Math.sqrt(3)/2], [1, 0]) }
@@ -98,23 +98,23 @@ RSpec.describe Geometry::D2::Triangle do
   end
 
   describe '#altitudes' do
-    let(:p1) { Geometry::D2::Point.new(0, 0) }
-    let(:p2) { Geometry::D2::Point.new(5, 0) }
-    let(:p3) { Geometry::D2::Point.new(0, 5) }
+    let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p2) { EasyGeometry::D2::Point.new(5, 0) }
+    let(:p3) { EasyGeometry::D2::Point.new(0, 5) }
     let(:triangle) { described_class.new(p1, p2, p3) }
 
     it 'should return altitudes' do
       altitudes = triangle.altitudes
-      expect(altitudes[p1]).to eq(Geometry::D2::Segment.new(p1, Geometry::D2::Point.new(Rational(5, 2), Rational(5, 2)))) 
+      expect(altitudes[p1]).to eq(EasyGeometry::D2::Segment.new(p1, EasyGeometry::D2::Point.new(Rational(5, 2), Rational(5, 2)))) 
       expect(altitudes[p2]).to eq(triangle.sides[0])
       expect(altitudes[p3]).to eq(triangle.sides[2])
     end
   end
 
   describe '#orthocenter' do
-    let(:p1) { Geometry::D2::Point.new(0, 0) }
-    let(:p2) { Geometry::D2::Point.new(5, 0) }
-    let(:p3) { Geometry::D2::Point.new(0, 5) }
+    let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p2) { EasyGeometry::D2::Point.new(5, 0) }
+    let(:p3) { EasyGeometry::D2::Point.new(0, 5) }
     let(:triangle) { described_class.new(p1, p2, p3) }
 
     it 'should return orthocenter' do
@@ -124,7 +124,7 @@ RSpec.describe Geometry::D2::Triangle do
 
   describe '#circumcenter' do
     it 'should return circumcenter' do
-      expect(described_class.new([0, 0], [1, 0], [0, 1]).circumcenter).to eq(Geometry::D2::Point.new(0.5, 0.5))
+      expect(described_class.new([0, 0], [1, 0], [0, 1]).circumcenter).to eq(EasyGeometry::D2::Point.new(0.5, 0.5))
     end
   end
 
@@ -135,33 +135,33 @@ RSpec.describe Geometry::D2::Triangle do
   end
 
   describe '#bisectors' do
-    let(:p1) { Geometry::D2::Point.new(0, 0) }
-    let(:p2) { Geometry::D2::Point.new(5, 0) }
-    let(:p3) { Geometry::D2::Point.new(0, 5) }
+    let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p2) { EasyGeometry::D2::Point.new(5, 0) }
+    let(:p3) { EasyGeometry::D2::Point.new(0, 5) }
     let(:triangle1) { described_class.new(p1, p2, p3) }
 
-    let(:p4) { Geometry::D2::Point.new(0, 0) }
-    let(:p5) { Geometry::D2::Point.new(1, 0) }
-    let(:p6) { Geometry::D2::Point.new(0, 1) }
+    let(:p4) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p5) { EasyGeometry::D2::Point.new(1, 0) }
+    let(:p6) { EasyGeometry::D2::Point.new(0, 1) }
     let(:triangle2) { described_class.new(p4, p5, p6) }
 
     it 'should return bisectors' do
       bisectors1 = triangle1.bisectors
       bisectors2 = triangle2.bisectors
 
-      expect(bisectors1[p1]).to eq(Geometry::D2::Segment.new(p1, Geometry::D2::Point.new(Rational(5, 2), Rational(5, 2))))
-      expect(bisectors2[p5]).to eq(Geometry::D2::Segment.new(p5, Geometry::D2::Point.new(0, Math.sqrt(2) - 1)))
+      expect(bisectors1[p1]).to eq(EasyGeometry::D2::Segment.new(p1, EasyGeometry::D2::Point.new(Rational(5, 2), Rational(5, 2))))
+      expect(bisectors2[p5]).to eq(EasyGeometry::D2::Segment.new(p5, EasyGeometry::D2::Point.new(0, Math.sqrt(2) - 1)))
     end
   end
 
   describe '#incenter' do
-    let(:p1) { Geometry::D2::Point.new(0, 0) }
-    let(:p2) { Geometry::D2::Point.new(1, 0) }
-    let(:p3) { Geometry::D2::Point.new(0, 1) }
+    let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p2) { EasyGeometry::D2::Point.new(1, 0) }
+    let(:p3) { EasyGeometry::D2::Point.new(0, 1) }
     let(:triangle) { described_class.new(p1, p2, p3) }
 
     it 'should return incenter' do
-      expect(triangle.incenter).to eq(Geometry::D2::Point.new(1 - Math.sqrt(2)/2, 1 - Math.sqrt(2)/2))
+      expect(triangle.incenter).to eq(EasyGeometry::D2::Point.new(1 - Math.sqrt(2)/2, 1 - Math.sqrt(2)/2))
     end
   end
 
@@ -183,41 +183,41 @@ RSpec.describe Geometry::D2::Triangle do
   end
 
   describe '#medians' do
-    let(:p1) { Geometry::D2::Point.new(0, 0) }
-    let(:p2) { Geometry::D2::Point.new(1, 0) }
-    let(:p3) { Geometry::D2::Point.new(0, 1) }
+    let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p2) { EasyGeometry::D2::Point.new(1, 0) }
+    let(:p3) { EasyGeometry::D2::Point.new(0, 1) }
     let(:triangle) { described_class.new(p1, p2, p3) }
 
     it 'should return medians' do
-      expect((triangle.medians[p1])).to eq(Geometry::D2::Segment.new(p1, Geometry::D2::Point.new(0.5, 0.5)))
+      expect((triangle.medians[p1])).to eq(EasyGeometry::D2::Segment.new(p1, EasyGeometry::D2::Point.new(0.5, 0.5)))
     end
   end
 
   describe '#medial' do
-    let(:p1) { Geometry::D2::Point.new(0, 0) }
-    let(:p2) { Geometry::D2::Point.new(1, 0) }
-    let(:p3) { Geometry::D2::Point.new(0, 1) }
+    let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p2) { EasyGeometry::D2::Point.new(1, 0) }
+    let(:p3) { EasyGeometry::D2::Point.new(0, 1) }
     let(:triangle) { described_class.new(p1, p2, p3) }
 
     it 'should return medial' do
       expect((triangle.medial)).to eq(described_class.new(
-        Geometry::D2::Point.new(0.5, 0), 
-        Geometry::D2::Point.new(0.5, 0.5),
-        Geometry::D2::Point.new(0, 0.5), 
+        EasyGeometry::D2::Point.new(0.5, 0), 
+        EasyGeometry::D2::Point.new(0.5, 0.5),
+        EasyGeometry::D2::Point.new(0, 0.5), 
       ))
     end
   end
 
   describe '#eulerline' do
-    let(:p1) { Geometry::D2::Point.new(0, 0) }
-    let(:p2) { Geometry::D2::Point.new(1, 0) }
-    let(:p3) { Geometry::D2::Point.new(0, 1) }
+    let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p2) { EasyGeometry::D2::Point.new(1, 0) }
+    let(:p3) { EasyGeometry::D2::Point.new(0, 1) }
     let(:triangle) { described_class.new(p1, p2, p3) }
 
     it 'should return eulerline' do
-      expect((triangle.eulerline)).to eq(Geometry::D2::Line.new(
-        Geometry::D2::Point.new(0, 0), 
-        Geometry::D2::Point.new(0.5, 0.5),
+      expect((triangle.eulerline)).to eq(EasyGeometry::D2::Line.new(
+        EasyGeometry::D2::Point.new(0, 0), 
+        EasyGeometry::D2::Point.new(0.5, 0.5),
       ))
     end
   end

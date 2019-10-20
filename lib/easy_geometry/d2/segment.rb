@@ -1,4 +1,4 @@
-module Geometry
+module EasyGeometry
   module D2
     # A segment in a 2-dimensional Euclidean space.
     class Segment < LinearEntity

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe Geometry::D2::Polygon do
-  let(:l1) { Geometry::D2::Line.new([0, 0], [1, 1]) }
+RSpec.describe EasyGeometry::D2::Polygon do
+  let(:l1) { EasyGeometry::D2::Line.new([0, 0], [1, 1]) }
   let(:poly1) { described_class.new([0, 0], [3, -1], [6, 0], [4, 5], [2, 3], [0, 3]) }
   let(:poly2) { described_class.new([6, 0], [3, -1], [0, 0], [0, 3], [2, 3], [4, 5]) }
   let(:poly3) { described_class.new([0, 0], [3, 0], [5, 2], [4, 4]) }
@@ -39,9 +39,9 @@ RSpec.describe Geometry::D2::Polygon do
   end
 
   describe '.is_right?' do
-    let(:p1) { Geometry::D2::Point.new(0, 0) }
-    let(:p2) { Geometry::D2::Point.new(1, 1) }
-    let(:p3) { Geometry::D2::Point.new(1, 0) }
+    let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+    let(:p2) { EasyGeometry::D2::Point.new(1, 1) }
+    let(:p3) { EasyGeometry::D2::Point.new(1, 0) }
 
     it 'should raise type error if incorrect parameters' do
       expect { described_class.is_right?("1", 0, nil) }.to raise_error(TypeError)
@@ -93,8 +93,8 @@ RSpec.describe Geometry::D2::Polygon do
 
   describe '#centroid' do
     it 'should return correct number' do
-      expect(poly6.centroid).to eq(Geometry::D2::Point.new(31/18r, 11/18r))
-      expect(poly5.centroid).to eq(Geometry::D2::Point.new(0.5, 0.5))
+      expect(poly6.centroid).to eq(EasyGeometry::D2::Point.new(31/18r, 11/18r))
+      expect(poly5.centroid).to eq(EasyGeometry::D2::Point.new(0.5, 0.5))
     end
   end
 
@@ -106,10 +106,10 @@ RSpec.describe Geometry::D2::Polygon do
 
     it 'should return correct array with sides' do
       expect(poly6.sides).to eq([
-        Geometry::D2::Segment.new([0, 0], [1, 0]),
-        Geometry::D2::Segment.new([1, 0], [5, 1]),
-        Geometry::D2::Segment.new([5, 1], [0, 1]),
-        Geometry::D2::Segment.new([0, 1], [0, 0]),
+        EasyGeometry::D2::Segment.new([0, 0], [1, 0]),
+        EasyGeometry::D2::Segment.new([1, 0], [5, 1]),
+        EasyGeometry::D2::Segment.new([5, 1], [0, 1]),
+        EasyGeometry::D2::Segment.new([0, 1], [0, 0]),
       ])
     end
   end
@@ -173,81 +173,81 @@ RSpec.describe Geometry::D2::Polygon do
 
     context 'with point' do
       it 'intersect' do
-        expect(polygon1.intersection(Geometry::D2::Point.new(0, 0))).to eq([Geometry::D2::Point.new(0, 0)])
-        expect(polygon1.intersection(Geometry::D2::Point.new(1, 0))).to eq([Geometry::D2::Point.new(1, 0)])
-        expect(polygon1.intersection(Geometry::D2::Point.new(0.5, 0))).to eq([Geometry::D2::Point.new(0.5, 0)])
+        expect(polygon1.intersection(EasyGeometry::D2::Point.new(0, 0))).to eq([EasyGeometry::D2::Point.new(0, 0)])
+        expect(polygon1.intersection(EasyGeometry::D2::Point.new(1, 0))).to eq([EasyGeometry::D2::Point.new(1, 0)])
+        expect(polygon1.intersection(EasyGeometry::D2::Point.new(0.5, 0))).to eq([EasyGeometry::D2::Point.new(0.5, 0)])
       end
       
       it 'not intersect' do
-        expect(polygon1.intersection(Geometry::D2::Point.new(-12, -43))).to eq([])
-        expect(polygon1.intersection(Geometry::D2::Point.new(0.1, 0.1))).to eq([])
+        expect(polygon1.intersection(EasyGeometry::D2::Point.new(-12, -43))).to eq([])
+        expect(polygon1.intersection(EasyGeometry::D2::Point.new(0.1, 0.1))).to eq([])
       end
     end
 
     context 'with linear entity' do
       it 'intersect' do
-        expect(polygon2.intersection(Geometry::D2::Line.new([-12, 0], [12, 0]))).to eq([
-          Geometry::D2::Point.new(-5, 0),
-          Geometry::D2::Point.new(0, 0),
-          Geometry::D2::Point.new(1/3r, 0),
-          Geometry::D2::Point.new(1, 0),
+        expect(polygon2.intersection(EasyGeometry::D2::Line.new([-12, 0], [12, 0]))).to eq([
+          EasyGeometry::D2::Point.new(-5, 0),
+          EasyGeometry::D2::Point.new(0, 0),
+          EasyGeometry::D2::Point.new(1/3r, 0),
+          EasyGeometry::D2::Point.new(1, 0),
         ])
 
-        expect(polygon2.intersection(Geometry::D2::Line.new([-5, 0], [0, 1]))).to eq([
-          Geometry::D2::Segment.new([-5, 0], [0, 1]),
+        expect(polygon2.intersection(EasyGeometry::D2::Line.new([-5, 0], [0, 1]))).to eq([
+          EasyGeometry::D2::Segment.new([-5, 0], [0, 1]),
         ])
 
-        expect(polygon2.intersection(Geometry::D2::Line.new([0, 0], [0, 1]))).to eq([
-          Geometry::D2::Point.new(0, 1),
-          Geometry::D2::Segment.new([0, -4], [0, 0.2]),
+        expect(polygon2.intersection(EasyGeometry::D2::Line.new([0, 0], [0, 1]))).to eq([
+          EasyGeometry::D2::Point.new(0, 1),
+          EasyGeometry::D2::Segment.new([0, -4], [0, 0.2]),
         ])
 
-        expect(polygon2.intersection(Geometry::D2::Ray.new([-3, 4], [1, 0]))).to eq([
-          Geometry::D2::Segment.new([1, 0], [0, 1]),
+        expect(polygon2.intersection(EasyGeometry::D2::Ray.new([-3, 4], [1, 0]))).to eq([
+          EasyGeometry::D2::Segment.new([1, 0], [0, 1]),
         ])
       end
       
       it 'not intersect' do
-        expect(polygon1.intersection(Geometry::D2::Line.new([-12, 0], [12, 12]))).to eq([])
+        expect(polygon1.intersection(EasyGeometry::D2::Line.new([-12, 0], [12, 12]))).to eq([])
       end
     end
 
     context 'with polygon' do
       it 'intersect' do
         expect(polygon1.intersection(polygon2)).to eq([
-          Geometry::D2::Point.new(1/3r, 0),
-          Geometry::D2::Segment.new([0, 1/5r], [0, 0]),
-          Geometry::D2::Segment.new([1, 0], [0, 1]),
+          EasyGeometry::D2::Point.new(1/3r, 0),
+          EasyGeometry::D2::Segment.new([0, 1/5r], [0, 0]),
+          EasyGeometry::D2::Segment.new([1, 0], [0, 1]),
         ])
 
         expect(polygon2.intersection(polygon1)).to eq([
-          Geometry::D2::Point.new(1/3r, 0),
-          Geometry::D2::Segment.new([0, 0], [0, 1/5r]),
-          Geometry::D2::Segment.new([1, 0], [0, 1]),
+          EasyGeometry::D2::Point.new(1/3r, 0),
+          EasyGeometry::D2::Segment.new([0, 0], [0, 1/5r]),
+          EasyGeometry::D2::Segment.new([1, 0], [0, 1]),
         ])
 
         expect(polygon1.intersection(polygon1)).to eq([
-          Geometry::D2::Segment.new([0, 0], [1, 0]),
-          Geometry::D2::Segment.new([0, 0], [0, 1]),
-          Geometry::D2::Segment.new([1, 0], [0, 1]),
+          EasyGeometry::D2::Segment.new([0, 0], [1, 0]),
+          EasyGeometry::D2::Segment.new([0, 0], [0, 1]),
+          EasyGeometry::D2::Segment.new([1, 0], [0, 1]),
         ])
 
         expect(polygon2.intersection(polygon2)).to eq([
-          Geometry::D2::Segment.new([-5, 0], [0, -4]),
-          Geometry::D2::Segment.new([0, -4], [0, 1/5r]),
-          Geometry::D2::Segment.new([0, 1/5r], [1/2r, -1/10r]),
-          Geometry::D2::Segment.new([0, 1], [-5, 0]),
-          Geometry::D2::Segment.new([1/2r, -1/10r], [1, 0]),
-          Geometry::D2::Segment.new([1, 0], [0, 1]),
+          EasyGeometry::D2::Segment.new([-5, 0], [0, -4]),
+          EasyGeometry::D2::Segment.new([0, -4], [0, 1/5r]),
+          EasyGeometry::D2::Segment.new([0, 1/5r], [1/2r, -1/10r]),
+          EasyGeometry::D2::Segment.new([0, 1], [-5, 0]),
+          EasyGeometry::D2::Segment.new([1/2r, -1/10r], [1, 0]),
+          EasyGeometry::D2::Segment.new([1, 0], [0, 1]),
         ])
 
         expect(polygon2.intersection(described_class.new([0, 1], [1, 0], [-1, 1]) )).to eq([
-          Geometry::D2::Point.new(-5/7r, 6/7r),
-          Geometry::D2::Segment.new([0, 1], [1, 0]),
+          EasyGeometry::D2::Point.new(-5/7r, 6/7r),
+          EasyGeometry::D2::Segment.new([0, 1], [1, 0]),
         ])
 
         expect(polygon1.intersection(described_class.new([3, 0], [1, 2], [1, 0]))).to eq([
-          Geometry::D2::Point.new(1, 0),
+          EasyGeometry::D2::Point.new(1, 0),
         ])
 
       end

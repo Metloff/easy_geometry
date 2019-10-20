@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-RSpec.describe Geometry::D2::Segment do
-  let(:p1) { Geometry::D2::Point.new(0, 0) }
-  let(:p2) { Geometry::D2::Point.new(1, 1) }
-  let(:p3) { Geometry::D2::Point.new(1, 0) }
+RSpec.describe EasyGeometry::D2::Segment do
+  let(:p1) { EasyGeometry::D2::Point.new(0, 0) }
+  let(:p2) { EasyGeometry::D2::Point.new(1, 1) }
+  let(:p3) { EasyGeometry::D2::Point.new(1, 0) }
   let(:s1) { described_class.new([0, 0], [1, 1]) }
   let(:s2) { described_class.new([0, 0], [-1, 1]) }
   let(:s3) { described_class.new([0, 0], [1, 0]) }
-  let(:l1) { Geometry::D2::Line.new([0, 0], [1, 1]) }
-  let(:l2) { Geometry::D2::Line.new([0, 0], [-1, 1]) }
-  let(:l3) { Geometry::D2::Line.new([0, 0], [1, 0]) }
-  let(:r1) { Geometry::D2::Ray.new([0, 0], [1, 1]) }
-  let(:r2) { Geometry::D2::Ray.new([0, 0], [-1, 1]) }
-  let(:r3) { Geometry::D2::Ray.new([0, 0], [1, 0]) }
+  let(:l1) { EasyGeometry::D2::Line.new([0, 0], [1, 1]) }
+  let(:l2) { EasyGeometry::D2::Line.new([0, 0], [-1, 1]) }
+  let(:l3) { EasyGeometry::D2::Line.new([0, 0], [1, 0]) }
+  let(:r1) { EasyGeometry::D2::Ray.new([0, 0], [1, 1]) }
+  let(:r2) { EasyGeometry::D2::Ray.new([0, 0], [-1, 1]) }
+  let(:r3) { EasyGeometry::D2::Ray.new([0, 0], [1, 0]) }
 
   describe '.new' do
     it 'should raise type error if incorrect parameters' do
@@ -37,8 +37,8 @@ RSpec.describe Geometry::D2::Segment do
 
   describe '#direction' do
     it 'should return a correct vector' do
-      expect(s1.direction).to eq(Geometry::D2::Vector.new(1, 1))
-      expect(s2.direction).to eq(Geometry::D2::Vector.new(-1, 1))
+      expect(s1.direction).to eq(EasyGeometry::D2::Vector.new(1, 1))
+      expect(s2.direction).to eq(EasyGeometry::D2::Vector.new(-1, 1))
     end
   end
 
@@ -119,8 +119,8 @@ RSpec.describe Geometry::D2::Segment do
 
     it 'should return true' do
       expect(s1.similar_to?(described_class.new([2, 2], [4, 4]))).to be true
-      expect(s1.similar_to?(Geometry::D2::Line.new([2, 2], [4, 4]))).to be true
-      expect(s1.similar_to?(Geometry::D2::Ray.new([2, 2], [4, 4]))).to be true
+      expect(s1.similar_to?(EasyGeometry::D2::Line.new([2, 2], [4, 4]))).to be true
+      expect(s1.similar_to?(EasyGeometry::D2::Ray.new([2, 2], [4, 4]))).to be true
       expect(s3.similar_to?(described_class.new([10, 0], [40, 0]))).to be true
     end
 
@@ -144,7 +144,7 @@ RSpec.describe Geometry::D2::Segment do
       it 'should return array with our point' do
         expect(s1.intersection(p1)).to eq([p1])
         expect(s1.intersection(p2)).to eq([p2])
-        expect(s1.intersection(Geometry::D2::Point.new(0.5, 0.5))).to eq([Geometry::D2::Point.new(0.5, 0.5)])
+        expect(s1.intersection(EasyGeometry::D2::Point.new(0.5, 0.5))).to eq([EasyGeometry::D2::Point.new(0.5, 0.5)])
       end
 
       it 'should return empty array' do
@@ -158,7 +158,7 @@ RSpec.describe Geometry::D2::Segment do
         expect(s1.intersection(l1)).to eq([s1])
         expect(s2.intersection(l2)).to eq([s2])
         expect(s3.intersection(l3)).to eq([s3])
-        expect(s1.intersection(Geometry::D2::Line.new([10, 10], [20, 20]))).to eq([s1])
+        expect(s1.intersection(EasyGeometry::D2::Line.new([10, 10], [20, 20]))).to eq([s1])
       end
 
       it 'should return array with results when intersection with no line' do
@@ -173,17 +173,17 @@ RSpec.describe Geometry::D2::Segment do
         expect(s1.intersection(described_class.new([2, 2], [4, 4]))).to eq([])
 
         expect(s1.intersection(r1)).to eq([s1])
-        expect(s1.intersection(Geometry::D2::Ray.new([0.5, 0.5], [2, 2]))).to eq([
+        expect(s1.intersection(EasyGeometry::D2::Ray.new([0.5, 0.5], [2, 2]))).to eq([
           described_class.new([0.5, 0.5], [1, 1])
         ])
-        expect(s1.intersection(Geometry::D2::Ray.new([0.5, 0.5], [-1, -1]))).to eq([
+        expect(s1.intersection(EasyGeometry::D2::Ray.new([0.5, 0.5], [-1, -1]))).to eq([
           described_class.new([0, 0], [0.5, 0.5])
         ])
-        expect(s1.intersection(Geometry::D2::Ray.new([2, 2], [0.5, 0.5]))).to eq([s1])
-        expect(s1.intersection(Geometry::D2::Ray.new([1, 1], [6, 6]))).to eq([p2])
-        expect(s1.intersection(Geometry::D2::Ray.new([0, 0], [-6, -6]))).to eq([p1])
-        expect(s1.intersection(Geometry::D2::Ray.new([0, 0], [6, 6]))).to eq([s1])
-        expect(s1.intersection(Geometry::D2::Ray.new([2, 2], [6, 6]))).to eq([])
+        expect(s1.intersection(EasyGeometry::D2::Ray.new([2, 2], [0.5, 0.5]))).to eq([s1])
+        expect(s1.intersection(EasyGeometry::D2::Ray.new([1, 1], [6, 6]))).to eq([p2])
+        expect(s1.intersection(EasyGeometry::D2::Ray.new([0, 0], [-6, -6]))).to eq([p1])
+        expect(s1.intersection(EasyGeometry::D2::Ray.new([0, 0], [6, 6]))).to eq([s1])
+        expect(s1.intersection(EasyGeometry::D2::Ray.new([2, 2], [6, 6]))).to eq([])
       end
     end
 
@@ -191,9 +191,9 @@ RSpec.describe Geometry::D2::Segment do
       context 'intersection with parallel linear entity' do
         it 'should return empty array' do
           expect(s1.intersection(described_class.new([1, 0], [2, 1]))).to eq([])
-          expect(s1.intersection(Geometry::D2::Line.new([1, 0], [2, 1]))).to eq([])
+          expect(s1.intersection(EasyGeometry::D2::Line.new([1, 0], [2, 1]))).to eq([])
           expect(s3.intersection(described_class.new([0, 1], [1, 1]))).to eq([])
-          expect(s3.intersection(Geometry::D2::Ray.new([0, 1], [1, 1]))).to eq([])
+          expect(s3.intersection(EasyGeometry::D2::Ray.new([0, 1], [1, 1]))).to eq([])
         end
       end
 
@@ -207,35 +207,35 @@ RSpec.describe Geometry::D2::Segment do
           expect(s1.intersection(r3)).to eq([p1])
 
           expect(described_class.new([0, 0], [10, 0]).intersection(described_class.new([3, -1], [9, 2]))).to eq([
-            Geometry::D2::Point.new(5, 0)
+            EasyGeometry::D2::Point.new(5, 0)
           ])
           expect(described_class.new([0, 0], [10, 0]).intersection(described_class.new([9, 2], [3, -1]))).to eq([
-            Geometry::D2::Point.new(5, 0)
+            EasyGeometry::D2::Point.new(5, 0)
           ])
           expect(described_class.new([-10, 0], [10, 0]).intersection(described_class.new([-3, -1], [2, 9]))).to eq([
-            Geometry::D2::Point.new(-2.5, 0)
+            EasyGeometry::D2::Point.new(-2.5, 0)
           ])
-          expect(described_class.new([0, 0.2], [0.5, -0.1]).intersection(Geometry::D2::Line.new([-12, 0], [12, 0]))).to eq([
-            Geometry::D2::Point.new(1/3r, 0)
+          expect(described_class.new([0, 0.2], [0.5, -0.1]).intersection(EasyGeometry::D2::Line.new([-12, 0], [12, 0]))).to eq([
+            EasyGeometry::D2::Point.new(1/3r, 0)
           ])
 
-          expect(s3.intersection(Geometry::D2::Ray.new([0, -1], [1, 1]))).to eq([
-            Geometry::D2::Point.new(0.5, 0)
+          expect(s3.intersection(EasyGeometry::D2::Ray.new([0, -1], [1, 1]))).to eq([
+            EasyGeometry::D2::Point.new(0.5, 0)
           ])
-          expect(described_class.new([-10, 0], [10, 0]).intersection(Geometry::D2::Ray.new([-3, 0.9], [1, 0.3]))).to eq([
-            Geometry::D2::Point.new(3, 0)
+          expect(described_class.new([-10, 0], [10, 0]).intersection(EasyGeometry::D2::Ray.new([-3, 0.9], [1, 0.3]))).to eq([
+            EasyGeometry::D2::Point.new(3, 0)
           ])
-          expect(s3.intersection(Geometry::D2::Ray.new([0.2, 0.2], [0.1, 0.1]))).to eq([p1])
+          expect(s3.intersection(EasyGeometry::D2::Ray.new([0.2, 0.2], [0.1, 0.1]))).to eq([p1])
         end
 
         it 'should return empty array' do
-          expect(s3.intersection(Geometry::D2::Segment.new([2, 2], [1, 1]))).to eq([])
-          expect(s3.intersection(Geometry::D2::Segment.new([-2, -2], [-1, -1]))).to eq([])
-          expect(s3.intersection(Geometry::D2::Segment.new([1.01, -1], [1.01, 4]))).to eq([])
-          expect(s3.intersection(Geometry::D2::Segment.new([-0.01, -1], [-0.01, 4]))).to eq([])
+          expect(s3.intersection(EasyGeometry::D2::Segment.new([2, 2], [1, 1]))).to eq([])
+          expect(s3.intersection(EasyGeometry::D2::Segment.new([-2, -2], [-1, -1]))).to eq([])
+          expect(s3.intersection(EasyGeometry::D2::Segment.new([1.01, -1], [1.01, 4]))).to eq([])
+          expect(s3.intersection(EasyGeometry::D2::Segment.new([-0.01, -1], [-0.01, 4]))).to eq([])
 
-          expect(s3.intersection(Geometry::D2::Ray.new([0, 0.001], [1, 1]))).to eq([])
-          expect(s3.intersection(Geometry::D2::Ray.new([1.0001, 0], [1.0001, -1]))).to eq([])
+          expect(s3.intersection(EasyGeometry::D2::Ray.new([0, 0.001], [1, 1]))).to eq([])
+          expect(s3.intersection(EasyGeometry::D2::Ray.new([1.0001, 0], [1.0001, -1]))).to eq([])
         end
       end
     end
@@ -279,12 +279,12 @@ RSpec.describe Geometry::D2::Segment do
     end
 
     it 'should return a perpendicular segment' do
-      expect(s2.perpendicular_segment(p2)).to eq(Geometry::D2::Segment.new(p2, p1))
-      expect(s3.perpendicular_segment(p2)).to eq(Geometry::D2::Segment.new(p2, p3))
-      expect(s3.perpendicular_segment(Geometry::D2::Point.new(2, 2))).to eq(
-        Geometry::D2::Segment.new(
-          Geometry::D2::Point.new(2, 2), 
-          Geometry::D2::Point.new(2, 0)
+      expect(s2.perpendicular_segment(p2)).to eq(EasyGeometry::D2::Segment.new(p2, p1))
+      expect(s3.perpendicular_segment(p2)).to eq(EasyGeometry::D2::Segment.new(p2, p3))
+      expect(s3.perpendicular_segment(EasyGeometry::D2::Point.new(2, 2))).to eq(
+        EasyGeometry::D2::Segment.new(
+          EasyGeometry::D2::Point.new(2, 2), 
+          EasyGeometry::D2::Point.new(2, 0)
         )
       )
     end
@@ -308,7 +308,7 @@ RSpec.describe Geometry::D2::Segment do
     it 'should return correct number' do
       expect(s1.span_test(p1)).to eq(0)
       expect(s1.span_test(p2)).to eq(1)
-      expect(s1.span_test(Geometry::D2::Point.new(-1, -1))).to eq(-1)
+      expect(s1.span_test(EasyGeometry::D2::Point.new(-1, -1))).to eq(-1)
     end
   end
 
@@ -328,35 +328,35 @@ RSpec.describe Geometry::D2::Segment do
     end
 
     it 'should contains segment' do
-      expect(s1.contains?(Geometry::D2::Segment.new(
+      expect(s1.contains?(EasyGeometry::D2::Segment.new(
         [0.01, 0.01], [0.999, 0.999]
       ))).to be true
 
-      expect(s1.contains?(Geometry::D2::Segment.new(
+      expect(s1.contains?(EasyGeometry::D2::Segment.new(
         [0.5, 0.5], [0.6, 0.6]
       ))).to be true
 
-      expect(s1.contains?(Geometry::D2::Segment.new(
+      expect(s1.contains?(EasyGeometry::D2::Segment.new(
         [0.5555551, 0.5555551], [0.5555552, 0.5555552]
       ))).to be true
     end
 
     it 'should not contains segment' do
-      expect(s1.contains?(Geometry::D2::Segment.new(
+      expect(s1.contains?(EasyGeometry::D2::Segment.new(
         [0, 0], [2, 2]
       ))).to be false
 
-      expect(s1.contains?(Geometry::D2::Segment.new(
+      expect(s1.contains?(EasyGeometry::D2::Segment.new(
         [0, 0], [1.000001, 1.000001]
       ))).to be false
 
-      expect(s1.contains?(Geometry::D2::Segment.new(
+      expect(s1.contains?(EasyGeometry::D2::Segment.new(
         [0.5, 0.5], [1.3, 1.3]
       ))).to be false
     end
 
     it 'should return false' do
-      expect(s1.contains?(Geometry::D2::Ray.new(
+      expect(s1.contains?(EasyGeometry::D2::Ray.new(
         [0, 0], [1, 1]
       ))).to be false
 
@@ -377,14 +377,14 @@ RSpec.describe Geometry::D2::Segment do
     it 'should not be equal' do
       expect(s1 == s2).to be false
       expect(s1 == s3).to be false
-      expect(s1 == Geometry::D2::Segment.new(
+      expect(s1 == EasyGeometry::D2::Segment.new(
         [0.000001, 0.000001], [1, 1]
       )).to be false
     end
 
     it 'should be equal' do
       expect(s1 == s1).to be true
-      expect(s1 == Geometry::D2::Segment.new([0, 0], [1, 1])).to be true
+      expect(s1 == EasyGeometry::D2::Segment.new([0, 0], [1, 1])).to be true
       expect(s3 == s3).to be true
     end
   end
@@ -423,9 +423,9 @@ RSpec.describe Geometry::D2::Segment do
 
   describe '#midpoint' do
     it 'should return a number' do
-      expect(s1.midpoint).to eq(Geometry::D2::Point.new(0.5, 0.5))
-      expect(s2.midpoint).to eq(Geometry::D2::Point.new(-0.5, 0.5))
-      expect(s3.midpoint).to eq(Geometry::D2::Point.new(0.5, 0))
+      expect(s1.midpoint).to eq(EasyGeometry::D2::Point.new(0.5, 0.5))
+      expect(s2.midpoint).to eq(EasyGeometry::D2::Point.new(-0.5, 0.5))
+      expect(s3.midpoint).to eq(EasyGeometry::D2::Point.new(0.5, 0))
     end
   end
 
@@ -440,7 +440,7 @@ RSpec.describe Geometry::D2::Segment do
     end
 
     it 'should return perpendicular linear entity' do
-      aline = Geometry::D2::Line.new([0.5, 0.5], [1.5, -0.5])
+      aline = EasyGeometry::D2::Line.new([0.5, 0.5], [1.5, -0.5])
       on_line = described_class.new([0.5, 0.5], [1.5, -0.5]).midpoint
 
       expect(s1.perpendicular_bisector).to eq(aline)
