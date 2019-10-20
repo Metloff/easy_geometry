@@ -9,6 +9,4 @@ module EasyGeometry
   require_relative 'easy_geometry/d2/ray'
   require_relative 'easy_geometry/d2/polygon'
   require_relative 'easy_geometry/d2/triangle'
-
-  p EasyGeometry::D2::Point.new(0, 0)
 end
