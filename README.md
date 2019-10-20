@@ -44,7 +44,7 @@ s3.length           # 1
 s1.intersection(s2) # [#<EasyGeometry::D2::Point:0x00007fc2728713d8 @x=(0/1), @y=(0/1)>]
 ```
 
-You can find more examples in tests directory.
+You can find more examples in `specs` directory.
 
 License
 -------
