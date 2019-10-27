@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "easy_geometry"
-  s.version     = "0.1.0"
+  s.version     = "0.2.0"
   s.author      = ["Henry Metlov"]
   s.date        = '2019-10-20'
   s.homepage    = "https://github.com/Metloff/easy_geometry"
