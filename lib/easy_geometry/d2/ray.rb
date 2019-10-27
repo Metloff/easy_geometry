@@ -6,10 +6,10 @@ module EasyGeometry
       # Is other GeometryEntity contained in this Ray?
       # 
       # Parameters:
-      #   GeometryEntity
+      #   GeometryEntity or Array of Numeric(coordinates)
       # 
       # Returns:
-      #   true if `other` is on this Line.
+      #   true if `other` is on this Ray.
       #   false otherwise.
       # 
       def contains?(other)
@@ -39,10 +39,11 @@ module EasyGeometry
 
       # Finds the shortest distance between the ray and a point.
       # 
-      # Raises
-      #   ======
-      #   TypeError is raised if `other` is not a Point
+      # Parameters:
+      #   Point or Array of Numeric(coordinates)
+      # 
       def distance(other)
+        other = Point.new(other[0], other[1]) if other.is_a?(Array)
         raise TypeError, "Distance between Ray and #{ other.class } is not defined" unless other.is_a?(Point)
 
         return 0 if self.contains?(other)
@@ -56,6 +57,10 @@ module EasyGeometry
       end
 
       # Returns True if self and other are the same mathematical entities
+      # 
+      # Parameters:
+      #   GeometryEntity
+      # 
       def ==(other)
         return false unless other.is_a?(Ray)
         self.source == other.source && self.contains?(other.p2)
@@ -72,6 +77,7 @@ module EasyGeometry
       #     Positive infinity if the ray points in the positive x direction,
       #     negative infinity if the ray points in the negative x direction,
       #     or 0 if the ray is vertical.
+      #
       def xdirection
         return @xdirection if defined?(@xdirection)
 
@@ -91,7 +97,8 @@ module EasyGeometry
       # Returns:
       #     Positive infinity if the ray points in the positive y direction,
       #     negative infinity if the ray points in the negative y direction,
-      #     or 0 if the ray is vertical.
+      #     or 0 if the ray is horizontal.
+      #
       def ydirection
         return @ydirection if defined?(@ydirection)
 

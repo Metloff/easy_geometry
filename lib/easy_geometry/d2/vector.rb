@@ -26,7 +26,7 @@ module EasyGeometry
       end
 
       # Returns a non-zero vector that is orthogonal to the
-      # line containing `self` and the origin.
+      # line containing self and the origin.
       def orthogonal_direction
         # if a coordinate is zero, we can put a 1 there and zeros elsewhere
         return Vector.new(1, 0) if x.zero?
@@ -38,7 +38,7 @@ module EasyGeometry
       end
 
       # It is positive if other vector should be turned counter-clockwise in order to superpose them.
-      # It is negetive if other vector should be turned clockwise in order to superpose them.
+      # It is negative if other vector should be turned clockwise in order to superpose them.
       # It is zero when vectors are collinear.
       def cross_product(other)
         raise TypeError, "Cross product between Vector and #{ other.class } is not defined" unless other.is_a?(Vector)
@@ -51,7 +51,7 @@ module EasyGeometry
         x * other.x + y * other.y
       end
 
-      # Converts the vector to a point
+      # Converts the vector to a point.
       def to_point
         Point.new(x, y)
       end

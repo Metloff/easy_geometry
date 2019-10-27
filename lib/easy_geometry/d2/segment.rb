@@ -6,7 +6,7 @@ module EasyGeometry
       # Is the other GeometryEntity contained within this Segment?
       # 
       # Parameters:
-      #   GeometryEntity
+      #   GeometryEntity or Array of Numeric(coordinates)
       # 
       # Returns:
       #   true if `other` is in this Segment.
@@ -36,7 +36,11 @@ module EasyGeometry
         return false
       end
 
-      # Returns True if self and other are the same mathematical entities
+      # Returns True if self and other are the same mathematical entities.
+      # 
+      # Parameters:
+      #   GeometryEntity
+      # 
       def ==(other)
         return false unless other.is_a?(Segment)
         [p1, p2].sort_by {|p| [p.x, p.y]} == [other.p1, other.p2].sort_by {|p| [p.x, p.y]}
@@ -50,14 +54,11 @@ module EasyGeometry
       # Finds the shortest distance between a line segment and a point.
       # 
       # Parameters:
-      #   Point
+      #   Point or Array of Numeric(coordinates)
       # 
       # Returns:
       #   Number
       # 
-      # Raises
-      #   ======
-      #   TypeError is raised if `other` is not a Point
       def distance(other)
         other = Point.new(other[0], other[1]) if other.is_a?(Array)
         raise TypeError, "Distance between Segment and #{ other.class } is not defined" unless other.is_a?(Point)

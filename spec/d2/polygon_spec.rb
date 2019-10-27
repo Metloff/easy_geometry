@@ -51,6 +51,7 @@ RSpec.describe EasyGeometry::D2::Polygon do
 
     it 'should return true' do
       expect(described_class.is_right?(p1, p2, p3)).to be true
+      expect(described_class.is_right?([0, 0], [1, 1], [1, 0])).to be true
     end
 
     it 'should return false' do
@@ -264,8 +265,6 @@ RSpec.describe EasyGeometry::D2::Polygon do
     let(:polygon3) { described_class.new([1, 2], [2, 2], [2, 1]) }
     let(:polygon4) { described_class.new([1, 1], [6/5r, 1], [1, 6/5r]) }
     let(:polygon5) { described_class.new([0, 0], [4, 4], [0, 4]) }
-
-
 
     it 'should raise TypeError' do
       expect{ poly1.distance(l1) }.to raise_error(TypeError)

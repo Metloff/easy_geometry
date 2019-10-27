@@ -17,7 +17,7 @@ module EasyGeometry
 
       # The direction vector of the LinearEntity.
       # Returns:
-      #   Point; the ray from the origin to this point is the
+      #   Vector; the ray from the origin to this point is the
       # direction of `self`.
       # 
       def direction
@@ -180,7 +180,7 @@ module EasyGeometry
       end
 
       # Create a new Line parallel to this linear entity which passes
-      # through the point `p`
+      # through the point p
       # 
       # Parameters:
       #   Point
@@ -189,12 +189,14 @@ module EasyGeometry
       #   Line
       # 
       def parallel_line(point)
+        point = Point.new(point[0], point[1]) if point.is_a?(Array)
         raise TypeError, 'Must pass only Point.' unless point.is_a?(Point)
+
         Line.new(point, point + self.direction.to_point)
       end
 
       # Create a new Line perpendicular to this linear entity which passes
-      # through the point `point`.
+      # through the `point`.
       # 
       # Parameters:
       #   Point
@@ -203,6 +205,7 @@ module EasyGeometry
       #   Line
       # 
       def perpendicular_line(point)
+        point = Point.new(point[0], point[1]) if point.is_a?(Array)
         raise TypeError, 'Must pass only Point.' unless point.is_a?(Point)
 
         # any two lines in R^2 intersect, so blindly making
@@ -222,6 +225,7 @@ module EasyGeometry
       #   Segment or Point (if `point` is on this linear entity.)
       # 
       def perpendicular_segment(point)
+        point = Point.new(point[0], point[1]) if point.is_a?(Array)
         raise TypeError, 'Must pass only Point.' unless point.is_a?(Point)
 
         return point if self.contains?(point)
@@ -258,12 +262,14 @@ module EasyGeometry
       # A point x is 'in front' of a point y if x.dot(y) >= 0.
       # 
       # Return
-      #   -1 if `other` is behind `self.p1`, 
-      #   0 if `other` is `self.p1` 
-      #   1 if `other` is in front of `self.p1`.
+      #   -1 if other is behind self.p1 
+      #   0 if other is self.p1
+      #   1 if other is in front of self.p1.
       # 
       def span_test(other)
+        other = Point.new(other[0], other[1]) if other.is_a?(Array)
         raise TypeError, 'Must pass only Point.' unless other.is_a?(Point)
+
         return 0 if self.p1 == other
 
         rel_pos = other - self.p1

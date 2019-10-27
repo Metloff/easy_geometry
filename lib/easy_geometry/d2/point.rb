@@ -66,8 +66,7 @@ module EasyGeometry
 
       # True if every coordinate is zero, False if any coordinate is not zero.
       def zero?
-        return true if x.zero? && y.zero? 
-        return false
+        x.zero? && y.zero? 
       end
 
       # Compare self and other Point.

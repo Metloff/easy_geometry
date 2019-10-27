@@ -3,15 +3,18 @@ module EasyGeometry
     # An infinite line in 2-dimensional Euclidean space.
     class Line < LinearEntity
 
+      # Is other GeometryEntity contained in this Line?
       # 
       # Parameters:
-      #   GeometryEntity
+      #   GeometryEntity or Array of Numeric(coordinates)
       # 
       # Returns:
       #   true if `other` is on this Line.
       #   false otherwise.
       # 
       def contains?(other)
+        other = Point.new(other[0], other[1]) if other.is_a?(Array)
+        
         if other.is_a?(Point)
           return Point.is_collinear?(other, self.p1, self.p2)    
         end
@@ -25,9 +28,9 @@ module EasyGeometry
 
       # Finds the shortest distance between a line and a point.
       # 
-      # Raises
-      #   ======
-      #   TypeError is raised if `other` is not a Point
+      # Parameters:
+      #   Point or Array of Numeric(coordinates)
+      # 
       def distance(other)
         other = Point.new(other[0], other[1]) if other.is_a?(Array)
         raise TypeError, "Distance between Line and #{ other.class } is not defined" unless other.is_a?(Point)
@@ -36,10 +39,13 @@ module EasyGeometry
         self.perpendicular_segment(other).length
       end
 
-      # Returns True if self and other are the same mathematical entities
+      # Returns True if self and other are the same mathematical entities.
+      # 
+      # Parameters:
+      #   GeometryEntity
+      # 
       def ==(other)
         return false unless other.is_a?(Line)
-
         Point.is_collinear?(self.p1, other.p1, self.p2, other.p2)
       end
 

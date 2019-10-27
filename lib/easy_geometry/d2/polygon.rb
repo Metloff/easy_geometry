@@ -11,7 +11,7 @@ module EasyGeometry
     # and any points collinear and between two points will be removed
     # unless they are needed to define an explicit intersection (see specs).
 
-    # Must be at least 4 points
+    # Must be at least 3 points
     class Polygon
       attr_reader :vertices
 
@@ -22,9 +22,18 @@ module EasyGeometry
       end
 
       # Return True/False for cw/ccw orientation.
+      # 
+      # Parameters:
+      #   a, b, c - EasyGeometry::D2::Point or Array of Numeric(coordinates)
+      # 
       def self.is_right?(a, b, c)
+        a = Point.new(a[0], a[1]) if a.is_a?(Array)
         raise TypeError, 'Must pass only Point objects' unless a.is_a?(Point)
+
+        b = Point.new(b[0], b[1]) if b.is_a?(Array)
         raise TypeError, 'Must pass only Point objects' unless b.is_a?(Point)
+
+        c = Point.new(c[0], c[1]) if c.is_a?(Array)
         raise TypeError, 'Must pass only Point objects' unless c.is_a?(Point)
 
         ba = b - a
@@ -114,7 +123,7 @@ module EasyGeometry
       # rectangle for the geometric figure.
       # 
       # Returns:
-      #   array
+      #   Array of Numeric
       #
       def bounds
         return @bounds if defined?(@bounds)
@@ -135,10 +144,14 @@ module EasyGeometry
       #   False otherwise.
       # 
       def is_convex?
+        return @is_convex if defined?(@is_convex)
+
+        @is_convex = false
+
         cw = Polygon.is_right?(vertices[-2], vertices[-1], vertices[0])
         (1...vertices.length).each do |i|
           if cw ^ Polygon.is_right?(vertices[i - 2], vertices[i - 1], vertices[i])
-            return false
+            return @is_convex
           end
         end
 
@@ -153,19 +166,20 @@ module EasyGeometry
             sj = sides[j]
             if !points.include?(sj.p1) && !points.include?(sj.p2)
               hit = si.intersection(sj)
-              return false if !hit.empty?
+                return @is_convex if !hit.empty?
             end
           end
         end
                          
-        return true
+        @is_convex = !@is_convex
+        @is_convex
       end
 
       # Return True if p is enclosed by (is inside of) self, False otherwise.
       # Being on the border of self is considered False.
       # 
       # Parameters:
-      #   Point
+      #   Point or Array of Numeric(coordinates)
       # 
       # Returns:
       #   bool

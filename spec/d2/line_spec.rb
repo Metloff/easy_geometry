@@ -215,6 +215,7 @@ RSpec.describe EasyGeometry::D2::Line do
 
     it 'should return a parallel line' do
       expect(l3.parallel_line(p2).parallel_to?(l3)).to be true
+      expect(l3.parallel_line([1, 1]).parallel_to?(l3)).to be true
     end
   end
 
@@ -227,6 +228,7 @@ RSpec.describe EasyGeometry::D2::Line do
 
     it 'should return a perpendicular line' do
       expect(l3.perpendicular_line(p2).perpendicular_to?(l3)).to be true
+      expect(l3.perpendicular_line([1, 1]).perpendicular_to?(l3)).to be true
     end
   end
 
@@ -238,7 +240,8 @@ RSpec.describe EasyGeometry::D2::Line do
     end
 
     it 'should return the point if line contains this point' do
-      expect(l1.perpendicular_segment(p1)).to eq(p1) 
+      expect(l1.perpendicular_segment(p1)).to eq(p1)
+      expect(l1.perpendicular_segment([0, 0])).to eq(p1)
       expect(l2.perpendicular_segment(p1)).to eq(p1) 
       expect(l3.perpendicular_segment(p1)).to eq(p1) 
     end
@@ -265,6 +268,7 @@ RSpec.describe EasyGeometry::D2::Line do
 
     it 'should return correct number' do
       expect(l1.span_test(p1)).to eq(0)
+      expect(l1.span_test([0, 0])).to eq(0)
       expect(l1.span_test(p2)).to eq(1)
       expect(l1.span_test(EasyGeometry::D2::Point.new(-1, -1))).to eq(-1)
     end
@@ -273,6 +277,7 @@ RSpec.describe EasyGeometry::D2::Line do
   describe '#contains?' do
     it 'should return true' do
       expect(l1.contains?(p1)).to be true
+      expect(l1.contains?([0, 0])).to be true
       expect(l1.contains?(p2)).to be true
       expect(l1.contains?(EasyGeometry::D2::Point.new(100, 100))).to be true
       expect(l1.contains?(EasyGeometry::D2::Segment.new(
@@ -305,7 +310,8 @@ RSpec.describe EasyGeometry::D2::Line do
     end
 
     it 'should return zero if line contains point' do
-      expect(l1.distance(p1)).to eq(0) 
+      expect(l1.distance(p1)).to eq(0)
+      expect(l1.distance([0, 0])).to eq(0) 
       expect(l1.distance(p2)).to eq(0) 
       expect(l2.distance(p1)).to eq(0) 
       expect(l3.distance(p1)).to eq(0) 

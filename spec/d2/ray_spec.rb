@@ -392,7 +392,7 @@ RSpec.describe EasyGeometry::D2::Ray do
     end
 
     it 'should return correct number' do
-      expect(r1.distance(EasyGeometry::D2::Point.new(-1, -1))).to eq(Math.sqrt(2))
+      expect(r1.distance([-1, -1])).to eq(Math.sqrt(2))
       expect(r1.distance(EasyGeometry::D2::Point.new(-1, 1))).to eq(Math.sqrt(2))
     end
   end

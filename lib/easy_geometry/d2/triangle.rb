@@ -47,6 +47,7 @@ module EasyGeometry
       end
 
       # Are two or more of the sides the same length?
+      # Precision - 10e-13
       # 
       # Returns:
       #   bool
@@ -56,6 +57,7 @@ module EasyGeometry
       end
 
       # Are all the sides of the triangle of different lengths?
+      # Precision - 10e-13
       # 
       # Returns:
       #   bool
@@ -120,12 +122,12 @@ module EasyGeometry
         @orthocenter
       end
 
-      # The circumcenter of the triangle
+      # The circumcenter of the triangle.
       # 
       # The circumcenter is the center of the circumcircle.
       # 
       # Returns:
-      #   Point or nil
+      #   Point
       # 
       def circumcenter
         return @circumcenter if defined?(@circumcenter)
@@ -139,7 +141,7 @@ module EasyGeometry
       # The radius of the circumcircle of the triangle.
       # 
       # Returns:
-      #   int
+      #   Numeric
       # 
       def circumradius
         @circumradius ||= self.vertices[0].distance(self.circumcenter)
@@ -206,7 +208,7 @@ module EasyGeometry
       # The radius of the incircle.
       # 
       # Returns:
-      #   int
+      #   Numeric
       #
       def inradius
         @inradius ||= 2 * self.area / self.perimeter
@@ -235,6 +237,7 @@ module EasyGeometry
       #
       def exradii
         return @exradii if defined?(@exradii)
+
         a = self.sides[0].length
         b = self.sides[1].length
         c = self.sides[2].length
