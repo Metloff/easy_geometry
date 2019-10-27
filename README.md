@@ -39,12 +39,12 @@ t.perimeter # 3.414213562373095
 s1 = EasyGeometry::D2::Segment.new([0, 0], [1, 1])
 s2 = EasyGeometry::D2::Segment.new([0, 0], [-1, 1])
 s3 = EasyGeometry::D2::Segment.new([0, 0], [1, 0])
-s1.midpoint         # <EasyGeometry::D2::Point:0x00007fabe69124d8 @x=(1/2), @y=(1/2)>
+s1.midpoint         # Point(1/2, 1/2)
 s3.length           # 1
-s1.intersection(s2) # [#<EasyGeometry::D2::Point:0x00007fc2728713d8 @x=(0/1), @y=(0/1)>]
+s1.intersection(s2) # [Point(0, 0)]
 ```
 
-You can find more examples in `specs` directory.
+You can find more examples in [documentetion](https://genrih-metlov.gitbook.io/easy-geometry/) and in `specs` directory.
 
 License
 -------
